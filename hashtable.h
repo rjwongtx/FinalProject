@@ -13,7 +13,7 @@ public:
     void add(String, int);
     void printTable();
     void printItemsAtIndex(int);
-    void findCount(String);
+    int findCount(String);
     void remove(String);
     ~HashTable();
 

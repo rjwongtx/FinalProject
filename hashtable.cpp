@@ -36,16 +36,24 @@ void HashTable::add(String a, int b)
     }
     else
     {
-        item* curr=HTable[index];
-        item* temp = new item;
-        temp->name=a;
-        temp->times=b;
-        temp->next=nullptr;
-        while(curr->next!=nullptr)
+        while(HTable[index]->name!="null")
         {
-            curr=curr->next;
+            index++;
+            if(index==tableSize)
+                index=0;
         }
-        curr->next=temp;
+        HTable[index]->name=a;
+        HTable[index]->times=b;
+//        item* curr=HTable[index];
+//        item* temp = new item;
+//        temp->name=a;
+//        temp->times=b;
+//        temp->next=nullptr;
+//        while(curr->next!=nullptr)
+//        {
+//            curr=curr->next;
+//        }
+//        curr->next=temp;
     }
 }
 
@@ -73,10 +81,14 @@ void HashTable::printTable()
     for(int i=0; i<tableSize; i++)
     {
         num=NumItemsAtIndex(i);
-        cout<<"index = "<<i<<endl;
-        cout<<"name: "<<HTable[i]->name<<endl;
-        cout<<"times: "<<HTable[i]->times<<endl;
-        cout<<"# of items in hash table at current index: "<<num<<endl;
+        if(num!=0)
+        {
+            cout<<"index = "<<i<<endl;
+            cout<<"name: "<<HTable[i]->name<<endl;
+            cout<<"times: "<<HTable[i]->times<<endl;
+            cout<<"# of items in hash table at current index: "<<num<<endl;
+            cout<<""<<endl;
+        }
     }
 }
 
@@ -94,23 +106,24 @@ void HashTable::printItemsAtIndex(int index)
         }
 }
 
-void HashTable::findCount(String name)
+int HashTable::findCount(String name)
 {
     int index = Hash(name);
-    bool foundObject = false;
+//    bool foundObject = false;
     int num;
     item* curr=HTable[index];
     while(curr!=nullptr)
     {
         if(curr->name==name)
         {
-            foundObject=true;
+         //   foundObject=true;
             num=curr->times;
         }
         curr=curr->next;
     }
-    if(foundObject==true)
-        cout<<"This has been stored this many times: "<<num<<endl;
+//    if(foundObject==true)
+//        cout<<"This has been stored this many times: "<<num<<endl;
+    return num;
 }
 
 void HashTable::remove(String name)
