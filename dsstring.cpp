@@ -27,7 +27,7 @@ String::String(const String& rhs)//takes in a string reference instead
 {
     if(rhs.data!=nullptr)
         {
-        data=new char[(rhs.length+1)];
+        data=new char[(rhs.length+14)];//this was one at first
         this->length=rhs.length;//same as the previous function bbut different code since we are dealing with a string instead of a char
         this->capacity=length+2;
         for(int i = 0; i<length; i++)
@@ -68,7 +68,10 @@ String:: ~String()      //Deconstructor for the String object
 //    {
 //     delete[]data;
 //    }
-    delete[]data;
+//    delete[]data;
+    data=nullptr;
+    capacity=0;
+    length=0;
    }
 
 String& String::operator=(const String &rhs)//makes assignment operator for function taht takes in a string

@@ -14,5 +14,6 @@ HEADERS += \
     catch.hpp \
     vector.h \
     parse.h \
-    hashtable.h
+    hashtable.h \
+    metric1.h
 
