@@ -10,7 +10,7 @@ class Parse
 {
     public:
         Parse();
-        Parse(String&);
+        Parse(String&, ofstream&);
         int charlength(char*);
         bool actualFile(char*);
     private:
@@ -22,25 +22,27 @@ class Parse
 Parse::Parse()
 {}
 
-Parse::Parse(String& d)
+Parse::Parse(String& d, ofstream& out)
 {
-
+    out<<"Parsing files through Metric1"<<endl;
     DIR *dirp;
+    double OS=0;
+    double NF=0;
     struct dirent *sd;
     dirp=opendir(d.c_str());
-
     if(dirp==NULL)
-        cout<<"Not working"<<endl;
+        out<<"Not working"<<endl;
     while((sd=readdir(dirp))!=NULL)
     {
       if(actualFile(sd->d_name))
       {
-        cout<<sd->d_name<<endl;
+        out<<sd->d_name<<endl;
         String currFile = d + "/" + sd->d_name;
-        Metric1 m1(currFile);
+        Metric1 m1(currFile, OS, NF, out);
       }
 
     }
+    out<<"Overall Score for Metric1: "<<OS/NF<<endl;
     closedir(dirp);
 }
 

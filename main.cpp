@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "hashtable.h"
+#include <fstream>
 //A macro used in main to determine if you want to run
 //the tests or not. If you don't want to run your tests,
 //change true to false in the line below.
@@ -31,9 +32,13 @@ int main( int argc, char* const argv[] )
     {
         return runCatchTests(argc, argv);
     }
-    String test = get_current_dir_name();
+
     String dirname=argv[1];
-    Parse p(dirname);
+    String outfile=argv[2];//this is the output
+    ofstream out(outfile.c_str());
+    out<<"start"<<endl;
+  //  Parse p(dirname, out);
+    out<<"done"<<endl;
 //    HashTable hashy;
 //    hashy.add("Number of Function Names", 10);
 //    hashy.add("Number of Classes", 15);

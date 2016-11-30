@@ -4,7 +4,7 @@
 class Metric1
 {
     public:
-        Metric1(String);
+        Metric1(String, double&, double&, ofstream&);
         int numOfFunctions(String);
         bool hasOpenBracketatEnd(char* );
         int charlength(char* dname);
@@ -16,7 +16,7 @@ class Metric1
 
 #endif // METRIC1
 
-Metric1::Metric1(String d)
+Metric1::Metric1(String d, double& OS, double& NF, ofstream& out)
 {
     double score=0;
     int lineCount=0;
@@ -29,20 +29,23 @@ Metric1::Metric1(String d)
         if(buffer[0]!='\0')
           lineCount++;
     }
-    cout<<"Line Count: "<<lineCount<<endl;
+    out<<"Line Count: "<<lineCount<<endl;
     fin.close();
     int numfunc = numOfFunctions(d);
-    cout<<"Function count: "<<numfunc<<endl;
+    out<<"Function count: "<<numfunc<<endl;
     if(numfunc==0)
         score=10;
     else
         score = lineCount/numfunc;
-    cout<<"Overall Score for Metric1: "<<score<<endl;
-    cout<<"------------------------------------"<<endl;
+    OS+=score;
+    NF++;
+    out<<"Score for Metric1 at this file: "<<score<<endl;
+    out<<"------------------------------------"<<endl;
 }
 
 int Metric1::numOfFunctions(String d)
 {
+    double voidCount=0;
     double classCount=0;
     double templateCount=0;
     ifstream fin;
@@ -63,6 +66,7 @@ int Metric1::numOfFunctions(String d)
                 {
                     classname[i]=buffer[i];
                 }
+                classname[charlength(buffer)-1]='\0';
             }
             else
             {
@@ -70,6 +74,7 @@ int Metric1::numOfFunctions(String d)
                 {
                     classname[i]=buffer[i];
                 }
+                classname[charlength(buffer)]='\0';
             }
         }
         else if(findsclassfunction(buffer,classname))
@@ -81,8 +86,13 @@ int Metric1::numOfFunctions(String d)
             templateCount++;
         }
         else if(a=="void")
-            functionCount+=0.5;
+        {
+            voidCount=voidCount+0.5;
+            functionCount=functionCount+0.5;
+        }
         else if(buffer[0]=='~')
+            functionCount++;
+        else if(a=="#include"||a=="#define")
             functionCount++;
         else if(a=="int")//sees if the int is a function or a variable
         {
@@ -105,7 +115,7 @@ int Metric1::numOfFunctions(String d)
     }
     fin.close();
     if(templateCount>10)
-        functionCount+=templateCount;
+        functionCount=templateCount;
     else
         functionCount+=classCount;
     return functionCount;
