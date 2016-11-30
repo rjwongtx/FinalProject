@@ -22,7 +22,7 @@ CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out)
         if(buffer[0]!='\0')
             lineCount++;
     }
-    cout<<"Line Count: "<<lineCount<<endl;
+    out<<"Line Count: "<<lineCount<<endl;
     fin.close();
 
     fin.open(d.c_str());
@@ -36,6 +36,11 @@ CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out)
                 comments++;
                 break;
             }
+            if(buffer[i]=='/' && buffer[i+1]=='*')
+            {
+                comments++;
+                break;
+            }
             else if(buffer[i]=='\0')
                 break;
             else
@@ -43,15 +48,15 @@ CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out)
         }
     }
     fin.close();
-    cout<<"Comment Count: "<<comments<<endl;
+    out<<"Comment Count: "<<comments<<endl;
     if(comments==0)
         score=10;
     else
         score = lineCount/comments;
     OS+=score;
     NF++;
-    cout<<"Score for Metric2 at this file: "<<score<<endl;
-    cout<<"---------------------------------"<<endl;
+    out<<"Score for Metric2 at this file: "<<score<<endl;
+    out<<"---------------------------------"<<endl;
 
 
 }

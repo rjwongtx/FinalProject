@@ -25,7 +25,7 @@ Parse::Parse()
 
 Parse::Parse(String& d, ofstream& out)
 {
-    cout<<"Parsing files through Metric1"<<endl;
+    out<<"Parsing files through Metric1"<<endl;
     DIR *dirp;
     double OS=0;
     double NF=0;
@@ -34,20 +34,20 @@ Parse::Parse(String& d, ofstream& out)
     struct dirent *sd;
     dirp=opendir(d.c_str());
     if(dirp==NULL)
-        cout<<"Not working"<<endl;
+        out<<"Not working"<<endl;
     while((sd=readdir(dirp))!=NULL)
     {
       if(actualFile(sd->d_name))
       {
-        cout<<sd->d_name<<endl;
+        out<<sd->d_name<<endl;
         String currFile = d + "/" + sd->d_name;
         Metric1 m1(currFile, OS, NF, out);
         CommentCounter c(currFile, OSc, NFc, out);
       }
 
     }
-    cout<<"Overall Score for Metric1: "<<OS/NF<<endl;
-    cout<<"Overall Score for CommentCounter: "<<OSc/NFc<<endl;
+    out<<"Overall Score for Metric1: "<<OS/NF<<endl;
+    out<<"Overall Score for CommentCounter: "<<OSc/NFc<<endl;
 
     closedir(dirp);
 }

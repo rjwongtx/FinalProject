@@ -36,9 +36,11 @@ int main( int argc, char* const argv[] )
     String dirname=argv[1];
     String outfile=argv[2];//this is the output
     ofstream out(outfile.c_str());
-    out<<"startfsdfsdfdsfdsfdsfdsfdsfdsfdsfdsfsdfdsafsd"<<endl;
-    Parse p(dirname, out);
-    out<<"done"<<endl;
+    ifstream fin(dirname.c_str());
+    char file[50];
+    fin>>file;
+    String filepath(file);
+    Parse p(filepath, out);
 //    char buffer[100]={'S','t','r','i',':',':','S','t','r','i'};
 //    char classname[100];
 //    for (int i=0;i<30; i++)

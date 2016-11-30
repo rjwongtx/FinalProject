@@ -5,7 +5,7 @@ class Metric1
 {
     public:
         Metric1(String, double&, double&, ofstream&);
-        int numOfFunctions(String);
+        int numOfFunctions(String, ofstream&);
         bool hasOpenBracketatEnd(char* );
         int charlength(char* dname);
         bool findsclassfunction(char*,char*);
@@ -29,21 +29,21 @@ Metric1::Metric1(String d, double& OS, double& NF, ofstream& out)
         if(buffer[0]!='\0')
           lineCount++;
     }
-    cout<<"Line Count: "<<lineCount<<endl;
+    out<<"Line Count: "<<lineCount<<endl;
     fin.close();
-    int numfunc = numOfFunctions(d);
-    cout<<"Function count: "<<numfunc<<endl;
+    int numfunc = numOfFunctions(d,out);
+    out<<"Function count: "<<numfunc<<endl;
     if(numfunc==0)
         score=10;
     else
         score = lineCount/numfunc;
     OS+=score;
     NF++;
-    cout<<"Score for Metric1 at this file: "<<score<<endl;
-    cout<<"------------------------------------"<<endl;
+    out<<"Score for Metric1 at this file: "<<score<<endl;
+    out<<"- -"<<endl;
 }
 
-int Metric1::numOfFunctions(String d)
+int Metric1::numOfFunctions(String d, ofstream& out)
 {
     double voidCount=0;
     double classCount=0;
@@ -51,6 +51,7 @@ int Metric1::numOfFunctions(String d)
     ifstream fin;
     char buffer[250];
     char classname[250];
+    classname[0]='\0';
     double functionCount=0;
     fin.open(d.c_str());
     while(!fin.eof())
@@ -114,6 +115,16 @@ int Metric1::numOfFunctions(String d)
             continue;
     }
     fin.close();//need to work on classname[0]==null
+    if(classname[0]=='\0')
+        out<<d<<endl;
+    else
+    {
+        for(int i=0; i<charlength(classname); i++)
+        {
+            out<<classname[i];
+        }
+        out<<endl;
+    }
     if(templateCount>10)
         functionCount=templateCount;
     else
