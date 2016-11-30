@@ -20,27 +20,27 @@ Metric1::Metric1(String d, double& OS, double& NF, ofstream& out)
 {
     double score=0;
     int lineCount=0;
-    char buffer[250];
+    char buffer[500];
     ifstream fin;
     fin.open(d.c_str());
     while(!fin.eof())
     {
-        fin.getline(buffer, 250);
+        fin.getline(buffer, 500);
         if(buffer[0]!='\0')
           lineCount++;
     }
-    out<<"Line Count: "<<lineCount<<endl;
+    cout<<"Line Count: "<<lineCount<<endl;
     fin.close();
     int numfunc = numOfFunctions(d);
-    out<<"Function count: "<<numfunc<<endl;
+    cout<<"Function count: "<<numfunc<<endl;
     if(numfunc==0)
         score=10;
     else
         score = lineCount/numfunc;
     OS+=score;
     NF++;
-    out<<"Score for Metric1 at this file: "<<score<<endl;
-    out<<"------------------------------------"<<endl;
+    cout<<"Score for Metric1 at this file: "<<score<<endl;
+    cout<<"------------------------------------"<<endl;
 }
 
 int Metric1::numOfFunctions(String d)
@@ -113,7 +113,7 @@ int Metric1::numOfFunctions(String d)
         else
             continue;
     }
-    fin.close();
+    fin.close();//need to work on classname[0]==null
     if(templateCount>10)
         functionCount=templateCount;
     else

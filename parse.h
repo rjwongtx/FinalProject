@@ -3,6 +3,7 @@
 #include "dsstring.h"
 #include "dirent.h"
 #include "metric1.h"
+#include "commentcounter.h"
 #include <sys/types.h>
 #include <iostream>
 #include <fstream>
@@ -24,25 +25,30 @@ Parse::Parse()
 
 Parse::Parse(String& d, ofstream& out)
 {
-    out<<"Parsing files through Metric1"<<endl;
+    cout<<"Parsing files through Metric1"<<endl;
     DIR *dirp;
     double OS=0;
     double NF=0;
+    double OSc=0;
+    double NFc=0;
     struct dirent *sd;
     dirp=opendir(d.c_str());
     if(dirp==NULL)
-        out<<"Not working"<<endl;
+        cout<<"Not working"<<endl;
     while((sd=readdir(dirp))!=NULL)
     {
       if(actualFile(sd->d_name))
       {
-        out<<sd->d_name<<endl;
+        cout<<sd->d_name<<endl;
         String currFile = d + "/" + sd->d_name;
         Metric1 m1(currFile, OS, NF, out);
+        CommentCounter c(currFile, OSc, NFc, out);
       }
 
     }
-    out<<"Overall Score for Metric1: "<<OS/NF<<endl;
+    cout<<"Overall Score for Metric1: "<<OS/NF<<endl;
+    cout<<"Overall Score for CommentCounter: "<<OSc/NFc<<endl;
+
     closedir(dirp);
 }
 

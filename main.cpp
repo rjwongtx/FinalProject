@@ -36,22 +36,23 @@ int main( int argc, char* const argv[] )
     String dirname=argv[1];
     String outfile=argv[2];//this is the output
     ofstream out(outfile.c_str());
-    out<<"start"<<endl;
-  //  Parse p(dirname, out);
+    out<<"startfsdfsdfdsfdsfdsfdsfdsfdsfdsfdsfsdfdsafsd"<<endl;
+    Parse p(dirname, out);
     out<<"done"<<endl;
-//    HashTable hashy;
-//    hashy.add("Number of Function Names", 10);
-//    hashy.add("Number of Classes", 15);
-//    hashy.add("Lines of Comments", 30);
-//    hashy.add("Times I want to quit DS", 100);
-//    hashy.add("Test1", 10);
-//    hashy.add("Test2", 15);
-//    hashy.add("Test3", 30);
-//    hashy.add("Test4", 100);
-//    hashy.add("Test5", 30);
-//    hashy.add("Test6", 100);
-
-
-//    hashy.printTable();
+//    char buffer[100]={'S','t','r','i',':',':','S','t','r','i'};
+//    char classname[100];
+//    for (int i=0;i<30; i++)
+//    {
+//        if(buffer[i]==':'&&buffer[i+1]==':')
+//        {
+//            for(int j=0; j<i; j++)
+//                classname[j]=buffer[j];
+//            break;
+//        }
+//        else
+//            continue;
+//    }
+//    String a(classname);
+//    cout<<a;
 
 }
