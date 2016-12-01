@@ -56,6 +56,8 @@ CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out, 
         score=10;
     else
         score = lineCount/comments;
+    if(score>10)
+        score=10;
     OS+=score;
     NF++;
     if(BorV=="-v")

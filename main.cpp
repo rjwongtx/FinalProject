@@ -42,20 +42,6 @@ int main( int argc, char* const argv[] )
     fin>>file;
     String filepath(file);
     Parse p(BorV, filepath, out);
-//    char buffer[100]={'S','t','r','i',':',':','S','t','r','i'};
-//    char classname[100];
-//    for (int i=0;i<30; i++)
-//    {
-//        if(buffer[i]==':'&&buffer[i+1]==':')
-//        {
-//            for(int j=0; j<i; j++)
-//                classname[j]=buffer[j];
-//            break;
-//        }
-//        else
-//            continue;
-//    }
-//    String a(classname);
-//    cout<<a;
+
 
 }
