@@ -4,6 +4,7 @@
 #include "dirent.h"
 #include "metric1.h"
 #include "commentcounter.h"
+#include "variablenames.h"
 #include <sys/types.h>
 #include <iostream>
 #include <fstream>
@@ -11,7 +12,7 @@ class Parse
 {
     public:
         Parse();
-        Parse(String&, ofstream&);
+        Parse(String, String&, ofstream&);
         int charlength(char*);
         bool actualFile(char*);
     private:
@@ -23,14 +24,11 @@ class Parse
 Parse::Parse()
 {}
 
-Parse::Parse(String& d, ofstream& out)
+Parse::Parse(String BorV, String& d, ofstream& out)
 {
-    out<<"Parsing files through Metric1"<<endl;
+    out<<"Parsing files through Metrics"<<endl;
     DIR *dirp;
-    double OS=0;
-    double NF=0;
-    double OSc=0;
-    double NFc=0;
+    double OS1=0,NF1=0,OS2=0,NF2=0, OS3=0, NF3=0;
     struct dirent *sd;
     dirp=opendir(d.c_str());
     if(dirp==NULL)
@@ -41,13 +39,16 @@ Parse::Parse(String& d, ofstream& out)
       {
         out<<sd->d_name<<endl;
         String currFile = d + "/" + sd->d_name;
-        Metric1 m1(currFile, OS, NF, out);
-        CommentCounter c(currFile, OSc, NFc, out);
+        Metric1 m1(currFile, OS1, NF1, out, BorV);
+        CommentCounter c(currFile, OS2, NF2, out, BorV);
+        VariableNames v(currFile, OS3, NF3, out, BorV);
+
       }
 
     }
-    out<<"Overall Score for Metric1: "<<OS/NF<<endl;
-    out<<"Overall Score for CommentCounter: "<<OSc/NFc<<endl;
+    out<<"Overall Score for Metric1: "<<OS1/NF1<<endl;
+    out<<"Overall Score for CommentCounter: "<<OS2/NF2<<endl;
+    out<<"Overall Score for VariableNames: "<<OS3/NF3<<endl;
 
     closedir(dirp);
 }

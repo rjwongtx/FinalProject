@@ -159,10 +159,13 @@ class AvlTree
     {
         if( t == NULL )
             return false;
-        else if( t->element >x )
+        else if( x < t->element )
             return contains( x, t->left );
-        else if( t->element < x )
+        else if(x==t->element)
+            return true;
+        else if( x > t->element )
             return contains( x, t->right );
+
         else
             return true;    // Match
     }

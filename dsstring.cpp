@@ -134,17 +134,7 @@ bool String::operator== (const char* rs)//creats an == operators for char
         }
     return 1;
 }
-bool String::operator== (const String& rhs)//the same as the pprevious one but with string
-{
-    if(this->size()!=rhs.length)
-        return false;
-    for(int i = 0; i<this->size(); i++)
-        {
-            if(this->data[i]!=rhs.data[i])
-                return false;
-        }
-    return true;
-}
+
 bool String::operator!=(const String& rhs)
 {
     if(this->size()!=rhs.length)
@@ -156,6 +146,17 @@ bool String::operator!=(const String& rhs)
         }
     return 0;
 
+}
+bool String::operator== (const String& rhs) const//the same as the pprevious one but with string
+{
+    int i =0;
+    while(this->data[i]==rhs.data[i] && i!=length)//keeps going until a letter is different
+        i++;
+    if (this->data[i]!=rhs.data[i])//sees which letter is greater
+        return 0;
+    else
+        return 1;
+    return 1;
 }
 bool String::operator> (const String& rhs) const//compares the ASCII values of the string to see which one is greater
 {

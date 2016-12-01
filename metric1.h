@@ -4,7 +4,7 @@
 class Metric1
 {
     public:
-        Metric1(String, double&, double&, ofstream&);
+        Metric1(String, double&, double&, ofstream&, String);
         int numOfFunctions(String, ofstream&);
         bool hasOpenBracketatEnd(char* );
         int charlength(char* dname);
@@ -16,7 +16,7 @@ class Metric1
 
 #endif // METRIC1
 
-Metric1::Metric1(String d, double& OS, double& NF, ofstream& out)
+Metric1::Metric1(String d, double& OS, double& NF, ofstream& out, String BorV)
 {
     double score=0;
     int lineCount=0;
@@ -29,18 +29,23 @@ Metric1::Metric1(String d, double& OS, double& NF, ofstream& out)
         if(buffer[0]!='\0')
           lineCount++;
     }
-    out<<"Line Count: "<<lineCount<<endl;
+    if(BorV=="-v")
+        out<<"Line Count: "<<lineCount<<endl;
     fin.close();
     int numfunc = numOfFunctions(d,out);
-    out<<"Function count: "<<numfunc<<endl;
+    if(BorV=="-v")
+        out<<"Function count: "<<numfunc<<endl;
     if(numfunc==0)
         score=10;
     else
         score = lineCount/numfunc;
     OS+=score;
     NF++;
-    out<<"Score for Metric1 at this file: "<<score<<endl;
-    out<<"- -"<<endl;
+    if(BorV=="-v")
+    {
+        out<<"Score for Metric1 at this file: "<<score<<endl;
+        out<<"- -"<<endl;
+    }
 }
 
 int Metric1::numOfFunctions(String d, ofstream& out)
@@ -116,15 +121,96 @@ int Metric1::numOfFunctions(String d, ofstream& out)
     }
     fin.close();//need to work on classname[0]==null
     if(classname[0]=='\0')
-        out<<d<<endl;
-    else
     {
-        for(int i=0; i<charlength(classname); i++)
+        fin.open(d.c_str());
+        double voidCount=0;
+        double classCount=0;
+        double templateCount=0;
+//        int gotcha=0;
+        char cname[250];
+        while(!fin.eof())
         {
-            out<<classname[i];
+            fin>>buffer;
+            String b(buffer);
+//            if(gotcha==0)
+//            {
+//                for (int i=0;i<30; i++)
+//                {
+//                    if(buffer[i]==':'&&buffer[i+1]==':')
+//                    {
+//                        for(int j=0; j<i; j++)
+//                            cname[j]=buffer[j];
+//                        gotcha++;
+//                        break;
+//                    }
+//                    else
+//                        continue;
+//                }
+//            }
+            for(int i=0; i<100; i++)
+            {
+                if(buffer[i]==':' && buffer[i+1]==':')
+                {
+                    functionCount++;
+                    break;
+                }
+                else
+                    continue;
+            }
+
+            if(findsclassfunction(buffer,cname))
+            {
+                classCount++;
+            }
+            else if(b=="template"||b=="template<class")
+            {
+                templateCount++;
+            }
+            else if(b=="void")
+            {
+                voidCount=voidCount+0.5;
+                functionCount=functionCount+0.5;
+            }
+            else if(buffer[0]=='~')
+                functionCount++;
+            else if(b=="#include"||b=="#define")
+                functionCount++;
+            else if(b=="int")//sees if the int is a function or a variable
+            {
+                fin>>buffer;
+                if(hasOpenBracketatEnd(buffer))
+                {
+                    functionCount++;
+                }
+            }
+            else if(b=="bool")//sees if the bool is a function of a variable
+            {
+                fin>>buffer;
+                if(hasOpenBracketatEnd(buffer))
+                {
+                    functionCount++;
+                }
+            }
+            else
+                continue;
+
+        }
+        fin.close();
+        for(int i=0; i<charlength(cname); i++)
+        {
+            out<<cname[i];
         }
         out<<endl;
     }
+//    else
+//    {
+//        out<<"Original is: ";
+//        for(int i=0; i<charlength(classname); i++)
+//        {
+//            out<<classname[i];
+//        }
+//        out<<endl;
+//    }
     if(templateCount>10)
         functionCount=templateCount;
     else
@@ -154,12 +240,17 @@ int Metric1::charlength(char* dname)
 }
 bool Metric1::findsclassfunction(char *buffer, char*classname)
 {
-    for(int i=0; i<charlength(classname); i++)
+    if(classname[0]!='\0')
     {
-        if(classname[i]!=buffer[i])
-            return false;
-        else
-            continue;
+        for(int i=0; i<charlength(classname); i++)
+        {
+            if(classname[i]!=buffer[i])
+                return false;
+            else
+                continue;
+        }
+        return true;
     }
-    return true;
+    else
+        return false;
 }

@@ -24,7 +24,7 @@ class String{
         String& operator= (const String&);//check
         String operator+ (const String&);
         bool operator== (const char*);
-        bool operator== (const String&);
+        bool operator== (const String&) const;
         bool operator!=(const String&);
         bool operator> (const String&) const;
         bool operator< (const String&) const;

@@ -4,14 +4,15 @@
 class CommentCounter
 {
     public:
-        CommentCounter(String, double&, double&, ofstream&);
+        CommentCounter(String, double&, double&, ofstream&, String);
 };
 #endif // COMMENTCOUNTER
 
-CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out)
+CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out, String BorV)
 {
     double score=0;
     double comments=0;
+    int starcounter=0;
     int lineCount=0;
     char buffer[500]={'\0'};
     ifstream fin;
@@ -22,14 +23,15 @@ CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out)
         if(buffer[0]!='\0')
             lineCount++;
     }
-    out<<"Line Count: "<<lineCount<<endl;
+    if(BorV=="-v")
+        out<<"Line Count: "<<lineCount<<endl;
     fin.close();
 
     fin.open(d.c_str());
     while(!fin.eof())
     {
         fin>>buffer;
-        for(int i=0; i<100; i++)
+        for(int i=0; i<500; i++)
         {
             if(buffer[i]=='/' && buffer[i+1]=='/')
             {
@@ -38,7 +40,7 @@ CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out)
             }
             if(buffer[i]=='/' && buffer[i+1]=='*')
             {
-                comments++;
+                comments+=10;
                 break;
             }
             else if(buffer[i]=='\0')
@@ -48,15 +50,19 @@ CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out)
         }
     }
     fin.close();
-    out<<"Comment Count: "<<comments<<endl;
+    if(BorV=="-v")
+       out<<"Comment Count: "<<comments<<endl;
     if(comments==0)
         score=10;
     else
         score = lineCount/comments;
     OS+=score;
     NF++;
-    out<<"Score for Metric2 at this file: "<<score<<endl;
-    out<<"---------------------------------"<<endl;
+    if(BorV=="-v")
+    {
+        out<<"Score for Metric2 at this file: "<<score<<endl;
+        out<<"- -"<<endl;
+    }
 
 
 }

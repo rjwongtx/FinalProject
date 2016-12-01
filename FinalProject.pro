@@ -16,5 +16,6 @@ HEADERS += \
     parse.h \
     hashtable.h \
     metric1.h \
-    commentcounter.h
+    commentcounter.h \
+    variablenames.h
 

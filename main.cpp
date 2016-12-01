@@ -15,6 +15,7 @@
 //A macro used in main to determine if you want to run
 //the tests or not. If you don't want to run your tests,
 //change true to false in the line below.
+//-v input.txt output.txt
 #define TEST false
 
 
@@ -32,15 +33,15 @@ int main( int argc, char* const argv[] )
     {
         return runCatchTests(argc, argv);
     }
-
-    String dirname=argv[1];
-    String outfile=argv[2];//this is the output
+    String BorV=argv[1];
+    String dirname=argv[2];
+    String outfile=argv[3];//this is the output
     ofstream out(outfile.c_str());
     ifstream fin(dirname.c_str());
     char file[50];
     fin>>file;
     String filepath(file);
-    Parse p(filepath, out);
+    Parse p(BorV, filepath, out);
 //    char buffer[100]={'S','t','r','i',':',':','S','t','r','i'};
 //    char classname[100];
 //    for (int i=0;i<30; i++)
