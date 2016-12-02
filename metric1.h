@@ -39,6 +39,8 @@ Metric1::Metric1(String d, double& OS, double& NF, ofstream& out, String BorV)
         score=10;
     else
         score = lineCount/numfunc;
+    if(score>10)
+        score=10;
     OS+=score;
     NF++;
     if(BorV=="-v")
@@ -158,11 +160,8 @@ int Metric1::numOfFunctions(String d, ofstream& out)
                     continue;
             }
 
-            if(findsclassfunction(buffer,cname))
-            {
-                classCount++;
-            }
-            else if(b=="template"||b=="template<class")
+
+            if(b=="template"||b=="template<class")
             {
                 templateCount++;
             }
@@ -183,7 +182,7 @@ int Metric1::numOfFunctions(String d, ofstream& out)
                     functionCount++;
                 }
             }
-            else if(b=="bool")//sees if the bool is a function of a variable
+            else if(b=="bool")//sees if the bool is a function or a variable
             {
                 fin>>buffer;
                 if(hasOpenBracketatEnd(buffer))
@@ -196,21 +195,9 @@ int Metric1::numOfFunctions(String d, ofstream& out)
 
         }
         fin.close();
-        for(int i=0; i<charlength(cname); i++)
-        {
-            out<<cname[i];
-        }
-        out<<endl;
+
     }
-//    else
-//    {
-//        out<<"Original is: ";
-//        for(int i=0; i<charlength(classname); i++)
-//        {
-//            out<<classname[i];
-//        }
-//        out<<endl;
-//    }
+
     if(templateCount>10)
         functionCount=templateCount;
     else

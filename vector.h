@@ -290,5 +290,3 @@ void Vector<S>::sort()//sort function
        this->data[i]=temp;
     }
 }
-
-

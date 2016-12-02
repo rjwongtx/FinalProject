@@ -19,7 +19,7 @@ class String{
         String();//check
         String(const char*);//check
         String(const String&);//check
-
+        String(const char*, int);
         String& operator= (const char*);//check
         String& operator= (const String&);//check
         String operator+ (const String&);

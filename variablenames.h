@@ -75,7 +75,7 @@ VariableNames::VariableNames(String d, double& OS, double& NF, ofstream& out, St
     if(BorV=="-v")
     {
         out<<"Score for Metric3 at this file: "<<score<<endl;
-        out<<"---------------------------------"<<endl;
+        out<<"-  -"<<endl;
     }
 
 

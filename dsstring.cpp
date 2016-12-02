@@ -22,6 +22,31 @@ String::String(const char* rhs)//takes in characters and converts it to an array
         this->length=0;
     }
 }
+String::String(const char* rhs, int i)//takes in characters and converts it to an array of chars and transfer it to data
+{
+    if(rhs!=nullptr)//if there is something in the function
+    {
+    data = new char[strlen(rhs)+1];//creates an array of chars based on the length of the string in the function
+    this->length=strlen(rhs);//sets the length of the current data to the length of the string passed in the function
+    this->capacity=length+2;//sets the capacity of the data while giving room for the null character at the end
+    for(int i = 0; i<length; i++)
+    {
+        int j=0;
+        if(rhs[i]!=' ')
+        {
+            data[j]=rhs[i];//assigns the char of each rhs to the char of each data
+            j++;
+        }
+    }
+    data[length]='\0';//puts a null character at the very end
+    }
+    else//if there is nothing, it keeps nothing
+    {
+        data=nullptr;
+        this->capacity=0;
+        this->length=0;
+    }
+}
 
 String::String(const String& rhs)//takes in a string reference instead
 {

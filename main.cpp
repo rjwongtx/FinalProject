@@ -4,7 +4,6 @@
 #include "catch.hpp"
 #include "avltree.h"
 #include "dsstring.h"
-#include "vector.h"
 #include "dirent.h"
 #include "parse.h"
 #include <sys/types.h>

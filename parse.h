@@ -5,6 +5,7 @@
 #include "metric1.h"
 #include "commentcounter.h"
 #include "variablenames.h"
+#include "duplication.h"
 #include <sys/types.h>
 #include <iostream>
 #include <fstream>
@@ -28,7 +29,7 @@ Parse::Parse(String BorV, String& d, ofstream& out)
 {
     out<<"Parsing files through Metrics"<<endl;
     DIR *dirp;
-    double OS1=0,NF1=0,OS2=0,NF2=0, OS3=0, NF3=0;
+    double OS1=0,NF1=0,OS2=0,NF2=0, OS3=0, NF3=0, OS4=0,NF4=0;
     struct dirent *sd;
     dirp=opendir(d.c_str());
     if(dirp==NULL)
@@ -42,6 +43,7 @@ Parse::Parse(String BorV, String& d, ofstream& out)
         Metric1 m1(currFile, OS1, NF1, out, BorV);
         CommentCounter c(currFile, OS2, NF2, out, BorV);
         VariableNames v(currFile, OS3, NF3, out, BorV);
+        Duplication d(currFile, OS4, NF4, out, BorV);
 
       }
 
@@ -49,6 +51,7 @@ Parse::Parse(String BorV, String& d, ofstream& out)
     out<<"Overall Score for Metric1: "<<OS1/NF1<<endl;
     out<<"Overall Score for CommentCounter: "<<OS2/NF2<<endl;
     out<<"Overall Score for VariableNames: "<<OS3/NF3<<endl;
+    out<<"Overall Score for Duplication: "<<OS4/NF4<<endl;
 
     closedir(dirp);
 }
