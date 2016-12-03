@@ -65,16 +65,16 @@ TEST_CASE("AVL class", "[AVL Tree]"){
 TEST_CASE("HashTable class", "[HashTable]")
 {
 
-//    HashTable hashy;
+    HashTable hashy;
 
-//    SECTION("Add"){
-//    hashy.add("Function Names", 10);
-//    REQUIRE(hashy.findCount("Function Names")==10);
-//    hashy.add("# of Classes", 30);
-//    REQUIRE(hashy.findCount("# of Classes")==30);
-//    hashy.add("Lines of comments", 100);
-//    REQUIRE(hashy.findCount("Lines of comments")==100);
-//    }
+    SECTION("Add"){
+    hashy.add("Function Names", 10);
+    REQUIRE(hashy.findCount("Function Names")==10);
+    hashy.add("# of Classes", 30);
+    REQUIRE(hashy.findCount("# of Classes")==30);
+    hashy.add("Lines of comments", 100);
+    REQUIRE(hashy.findCount("Lines of comments")==100);
+    }
 
     SECTION("Items at Index")
     {

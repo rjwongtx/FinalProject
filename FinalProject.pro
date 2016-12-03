@@ -18,5 +18,6 @@ HEADERS += \
     metric1.h \
     commentcounter.h \
     variablenames.h \
-    duplication.h
+    duplication.h \
+    charcount.h
 

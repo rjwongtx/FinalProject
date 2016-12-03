@@ -6,6 +6,7 @@
 #include "commentcounter.h"
 #include "variablenames.h"
 #include "duplication.h"
+#include "charcount.h"
 #include <sys/types.h>
 #include <iostream>
 #include <fstream>
@@ -54,7 +55,7 @@ Parse::Parse(String BorV, String& d, ofstream& out, bool option, double& NF, dou
         CommentCounter c(currFile, OS2, na, out, BorV);
         VariableNames v(currFile, OS3, na, out, BorV);
         Duplication d(currFile, OS4, na, out, BorV);
-
+        CharCount r(currFile, OS5, na, out, BorV);
       }
 
     }
@@ -64,6 +65,8 @@ Parse::Parse(String BorV, String& d, ofstream& out, bool option, double& NF, dou
         out<<"Overall Score for CommentCounter: "<<OS2/NF<<endl;
         out<<"Overall Score for VariableNames: "<<OS3/NF<<endl;
         out<<"Overall Score for Duplication: "<<OS4/NF<<endl;
+        out<<"Overall Score for CharCount: "<<OS5/NF<<endl;
+
     }
     closedir(dirp);
 }

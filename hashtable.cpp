@@ -36,24 +36,24 @@ void HashTable::add(String a, int b)
     }
     else
     {
-        while(HTable[index]->name!="null")
-        {
-            index++;
-            if(index==tableSize)
-                index=0;
-        }
-        HTable[index]->name=a;
-        HTable[index]->times=b;
-//        item* curr=HTable[index];
-//        item* temp = new item;
-//        temp->name=a;
-//        temp->times=b;
-//        temp->next=nullptr;
-//        while(curr->next!=nullptr)
+//        while(HTable[index]->name!="null")
 //        {
-//            curr=curr->next;
+//            index++;
+//            if(index==tableSize)
+//                index=0;
 //        }
-//        curr->next=temp;
+//        HTable[index]->name=a;
+//        HTable[index]->times=b;
+        item* curr=HTable[index];
+        item* temp = new item;
+        temp->name=a;
+        temp->times=b;
+        temp->next=nullptr;
+        while(curr->next!=nullptr)
+        {
+            curr=curr->next;
+        }
+        curr->next=temp;
     }
 }
 

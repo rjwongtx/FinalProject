@@ -32,13 +32,11 @@ int main( int argc, char* const argv[] )
     {
         return runCatchTests(argc, argv);
     }
-    double i=0;
     String BorV=argv[1];
     String dirname=argv[2];
     String outfile=argv[3];//this is the output
     ofstream out(outfile.c_str());
     ifstream fin(dirname.c_str());
-    Vector<double> OverallScore1(100);
     double OS1=0;
     double OS2=0;
     double OS3=0;
@@ -49,7 +47,7 @@ int main( int argc, char* const argv[] )
     fin>>file;
     String filepath(file);
     out<<"Parsing files through Metrics"<<endl;
-    Parse p(BorV, filepath, out, true, NF, OS1, OS2,OS3,OS4);
+    Parse p(BorV, filepath, out, true, NF, OS1, OS2,OS3,OS4,OS5);
     cout<<"Number of file: "<<NF<<endl;
 //    cout<<"Overall Score for Metric1: "<<OS1/NF<<endl;
 //    cout<<"Overall Score for CommentCounter: "<<OS2/NF<<endl;
