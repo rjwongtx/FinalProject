@@ -13,7 +13,7 @@ class Parse
 {
     public:
         Parse();
-        Parse(String, String&, ofstream&, bool option);
+        Parse(String, String&, ofstream&, bool, double&, double&,double&,double&,double&,double&);
         int charlength(char*);
         bool actualFile(char*);
     private:
@@ -25,9 +25,9 @@ class Parse
 Parse::Parse()
 {}
 
-Parse::Parse(String BorV, String& d, ofstream& out, bool option)
+Parse::Parse(String BorV, String& d, ofstream& out, bool option, double& NF, double& OS1, double& OS2,double& OS3,double& OS4,double& OS5)
 {
-    double OS1=0,NF1=0,OS2=0,NF2=0, OS3=0, NF3=0, OS4=0,NF4=0;
+    double na=0;
     DIR *dirp;
     struct dirent *sd;
     dirp=opendir(d.c_str());
@@ -41,7 +41,7 @@ Parse::Parse(String BorV, String& d, ofstream& out, bool option)
       {
           dirp2=opendir(temp.c_str());
           if(dirp2!=NULL)
-              Parse q(BorV, temp, out, false);
+              Parse q(BorV, temp, out, false, NF, OS1, OS2,OS3,OS4,OS5);
           else
               closedir(dirp2);
       }
@@ -50,20 +50,20 @@ Parse::Parse(String BorV, String& d, ofstream& out, bool option)
       {
         out<<sd->d_name<<endl;
         String currFile = d + "/" + sd->d_name;
-        Metric1 m1(currFile, OS1, NF1, out, BorV);
-        CommentCounter c(currFile, OS2, NF2, out, BorV);
-        VariableNames v(currFile, OS3, NF3, out, BorV);
-        Duplication d(currFile, OS4, NF4, out, BorV);
+        Metric1 m1(currFile, OS1, NF, out, BorV);
+        CommentCounter c(currFile, OS2, na, out, BorV);
+        VariableNames v(currFile, OS3, na, out, BorV);
+        Duplication d(currFile, OS4, na, out, BorV);
 
       }
 
     }
     if(option)
     {
-        out<<"Overall Score for Metric1: "<<OS1/NF1<<endl;
-        out<<"Overall Score for CommentCounter: "<<OS2/NF2<<endl;
-        out<<"Overall Score for VariableNames: "<<OS3/NF3<<endl;
-        out<<"Overall Score for Duplication: "<<OS4/NF4<<endl;
+        out<<"Overall Score for Metric1: "<<OS1/NF<<endl;
+        out<<"Overall Score for CommentCounter: "<<OS2/NF<<endl;
+        out<<"Overall Score for VariableNames: "<<OS3/NF<<endl;
+        out<<"Overall Score for Duplication: "<<OS4/NF<<endl;
     }
     closedir(dirp);
 }
