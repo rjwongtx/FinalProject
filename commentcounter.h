@@ -12,7 +12,6 @@ CommentCounter::CommentCounter(String d, double& OS, double& NF, ofstream& out, 
 {
     double score=0;
     double comments=0;
-    int starcounter=0;
     int lineCount=0;
     char buffer[500]={'\0'};
     ifstream fin;

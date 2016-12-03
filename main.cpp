@@ -32,6 +32,7 @@ int main( int argc, char* const argv[] )
     {
         return runCatchTests(argc, argv);
     }
+    double i=0;
     String BorV=argv[1];
     String dirname=argv[2];
     String outfile=argv[3];//this is the output
@@ -40,7 +41,8 @@ int main( int argc, char* const argv[] )
     char file[50];
     fin>>file;
     String filepath(file);
-    Parse p(BorV, filepath, out);
+    out<<"Parsing files through Metrics"<<endl;
+    Parse p(BorV, filepath, out, true);
 
 
 }

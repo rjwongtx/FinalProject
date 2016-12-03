@@ -13,7 +13,7 @@ class Parse
 {
     public:
         Parse();
-        Parse(String, String&, ofstream&);
+        Parse(String, String&, ofstream&, bool option);
         int charlength(char*);
         bool actualFile(char*);
     private:
@@ -25,17 +25,27 @@ class Parse
 Parse::Parse()
 {}
 
-Parse::Parse(String BorV, String& d, ofstream& out)
+Parse::Parse(String BorV, String& d, ofstream& out, bool option)
 {
-    out<<"Parsing files through Metrics"<<endl;
-    DIR *dirp;
     double OS1=0,NF1=0,OS2=0,NF2=0, OS3=0, NF3=0, OS4=0,NF4=0;
+    DIR *dirp;
     struct dirent *sd;
     dirp=opendir(d.c_str());
     if(dirp==NULL)
         out<<"Not working"<<endl;
     while((sd=readdir(dirp))!=NULL)
     {
+      DIR *dirp2;
+      String temp = d + "/" + sd->d_name;
+      if(sd->d_name[0]!='.')
+      {
+          dirp2=opendir(temp.c_str());
+          if(dirp2!=NULL)
+              Parse q(BorV, temp, out, false);
+          else
+              closedir(dirp2);
+      }
+
       if(actualFile(sd->d_name))
       {
         out<<sd->d_name<<endl;
@@ -48,11 +58,13 @@ Parse::Parse(String BorV, String& d, ofstream& out)
       }
 
     }
-    out<<"Overall Score for Metric1: "<<OS1/NF1<<endl;
-    out<<"Overall Score for CommentCounter: "<<OS2/NF2<<endl;
-    out<<"Overall Score for VariableNames: "<<OS3/NF3<<endl;
-    out<<"Overall Score for Duplication: "<<OS4/NF4<<endl;
-
+    if(option)
+    {
+        out<<"Overall Score for Metric1: "<<OS1/NF1<<endl;
+        out<<"Overall Score for CommentCounter: "<<OS2/NF2<<endl;
+        out<<"Overall Score for VariableNames: "<<OS3/NF3<<endl;
+        out<<"Overall Score for Duplication: "<<OS4/NF4<<endl;
+    }
     closedir(dirp);
 }
 

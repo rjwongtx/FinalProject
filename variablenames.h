@@ -77,11 +77,6 @@ VariableNames::VariableNames(String d, double& OS, double& NF, ofstream& out, St
         out<<"Score for Metric3 at this file: "<<score<<endl;
         out<<"-  -"<<endl;
     }
-
-
-
-
-
 }
 
 bool VariableNames::hasOpenBracketatEnd(char* dname)
@@ -121,7 +116,7 @@ bool VariableNames::badvariable(char* variable)
        {
            for(int i=0; i<100; i++)
            {
-               if(variable[i]=='/' && variable[i+1]=='/')
+               if(variable[i]=='/' && variable[i+1]=='/')//if there are comments explaining the variables 
                    return false;
            }
            return true;
