@@ -74,6 +74,11 @@ TEST_CASE("HashTable class", "[HashTable]")
     REQUIRE(hashy.findCount("# of Classes")==30);
     hashy.add("Lines of comments", 100);
     REQUIRE(hashy.findCount("Lines of comments")==100);
+    hashy.add("Line Count", 40);
+    REQUIRE(hashy.findCount("Line Count")==40);
+    hashy.add("Number of Chars", 80);
+
+    REQUIRE(hashy.findCount("Number of Chars")==80);
     }
 
     SECTION("Items at Index")

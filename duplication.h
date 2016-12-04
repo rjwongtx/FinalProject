@@ -91,7 +91,7 @@ Duplication::Duplication(String d, double& OS, double& NF, ofstream& out, String
     if(BorV=="-v")
     {
         out<<"Score for Metric4 at this file: "<<score<<endl;
-        out<<"---------------------------------"<<endl;
+        out<<"- -"<<endl;
     }
 }
 bool Duplication::ifDuplicates(Vector<String>& duplicates, String b)
