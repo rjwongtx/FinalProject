@@ -84,8 +84,8 @@ void HashTable::printTable()
         if(num!=0)
         {
             cout<<"index = "<<i<<endl;
-            cout<<"name: "<<HTable[i]->name<<endl;
-            cout<<"times: "<<HTable[i]->times<<endl;
+            cout<<"Metric: "<<HTable[i]->name<<endl;
+            cout<<"Score: "<<HTable[i]->times<<endl;
             cout<<"# of items in hash table at current index: "<<num<<endl;
             cout<<""<<endl;
         }

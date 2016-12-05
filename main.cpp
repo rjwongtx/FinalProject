@@ -49,10 +49,12 @@ int main( int argc, char* const argv[] )
     out<<"Parsing files through Metrics"<<endl;
     Parse p(BorV, filepath, out, true, NF, OS1, OS2,OS3,OS4,OS5);
     cout<<"Number of file: "<<NF<<endl;
-//    cout<<"Overall Score for Metric1: "<<OS1/NF<<endl;
-//    cout<<"Overall Score for CommentCounter: "<<OS2/NF<<endl;
-//    cout<<"Overall Score for VariableNames: "<<OS3/NF<<endl;
-//    cout<<"Overall Score for Duplication: "<<OS4/NF<<endl;
-
+    HashTable h;
+    h.add("Metric1", OS1/NF);
+    h.add("Metric2", OS2/NF);
+    h.add("Metric3", OS3/NF);
+    h.add("Metric4", OS4/NF);
+    h.add("Metric5", OS5/NF);
+    h.printTable();
 
 }
